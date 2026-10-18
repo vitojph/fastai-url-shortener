@@ -1,7 +1,6 @@
 import secrets
+import sqlite3
 import string
-
-from sqlalchemy.orm import Session
 
 import crud
 
@@ -11,7 +10,7 @@ def create_random_key(length: int = 5) -> str:
     return "".join(secrets.choice(chars) for _ in range(length))
 
 
-def create_unique_random_key(db: Session) -> str:
+def create_unique_random_key(db: sqlite3.Connection) -> str:
     key = create_random_key()
     while crud.get_db_url_by_key(db, key):
         key = create_random_key()

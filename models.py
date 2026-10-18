@@ -1,14 +1,23 @@
-from sqlalchemy import Boolean, Column, Integer, String
+import sqlite3
+from dataclasses import dataclass
 
-from db import Base
 
+@dataclass
+class URL:
+    target_url: str
+    key: str
+    secret_key: str
+    id: int | None = None
+    is_active: bool = True
+    clicks: int = 0
 
-class URL(Base):
-    __tablename__ = "urls"
-
-    id = Column(Integer, primary_key=True)
-    key = Column(String, unique=True, index=True)
-    secret_key = Column(String, unique=True, index=True)
-    target_url = Column(String, unique=True)
-    is_active = Column(Boolean, default=True)
-    clicks = Column(Integer, default=0)
+    @classmethod
+    def from_row(cls, row: sqlite3.Row) -> "URL":
+        return cls(
+            id=row["id"],
+            key=row["key"],
+            secret_key=row["secret_key"],
+            target_url=row["target_url"],
+            is_active=bool(row["is_active"]),
+            clicks=row["clicks"],
+        )
