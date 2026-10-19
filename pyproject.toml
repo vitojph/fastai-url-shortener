@@ -6,8 +6,10 @@ readme = "README.md"
 requires-python = ">=3.14"
 dependencies = [
     "fastapi[standard]>=0.145.0",
+    "opentelemetry-distro>=0.66b1",
+    "opentelemetry-exporter-otlp>=1.45.1",
+    "opentelemetry-instrumentation-fastapi>=0.66b1",
     "pydantic>=2.14.1",
     "pydantic-settings>=2.16.0",
-    "python-dotenv>=1.2.4",
     "validators>=0.36.0",
 ]
